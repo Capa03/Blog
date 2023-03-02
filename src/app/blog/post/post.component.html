@@ -1,0 +1,26 @@
+
+<mat-dialog-content style="overflow: hidden;">
+<form [formGroup]="postForm" style="margin: 30px; width:300px;" (ngSubmit)="onSubmit(postForm.value)" novalidate>
+  <div class="form-group" [ngClass]="{'error': title?.invalid && title?.touched}">
+    <label for="exampleInputEmail1">Title</label>
+    <input type="text" class="form-control"  formControlName="title" >
+    <em *ngIf="title?.invalid && title?.touched">Required</em>
+  </div>
+
+  <br>
+  <div class="form-group" [ngClass]="{'error': name?.invalid && name?.touched}">
+    <label for="exampleInputEmail1">Name</label>
+    <input type="text" class="form-control" formControlName="name"  >
+    <em *ngIf="name?.invalid && name?.touched">Required</em>
+  </div>
+  <br>
+  <div class="form-group" [ngClass]="{'error': content?.invalid && content?.touched}">
+    <label for="exampleInputPassword1">Text</label>
+    <textarea type="text" class="form-control" formControlName="content" maxlength="100"></textarea>
+    <em *ngIf="content.errors?.['required'] && content?.touched">Required</em>
+    <em *ngIf="!content?.invalid">{{content.value?.length}}/100</em>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">Submit</button>
+</form>
+</mat-dialog-content>
