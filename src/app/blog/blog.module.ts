@@ -1,3 +1,7 @@
+import { PostEffects } from './stateBlog/blog.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { postReducer } from './stateBlog/blog.reducer';
+import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -21,7 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature('post',postReducer),
+    EffectsModule.forFeature([PostEffects])
   ],
   exports:[
     BlogComponent

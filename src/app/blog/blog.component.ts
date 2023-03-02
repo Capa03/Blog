@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Post } from './post';
 import { PostComponent } from './post/post.component';
 
 @Component({
@@ -10,9 +13,16 @@ import { PostComponent } from './post/post.component';
 export class BlogComponent {
   pageTitle: string = "Blog";
 
-  constructor(private dialogRef: MatDialog){}
+
+  post$: Observable<Post[]> | undefined;
+  constructor(private dialogRef: MatDialog, private store: Store<Store>){}
+
+
 
   openDialog(){
-    this.dialogRef.open(PostComponent);
+    let config : MatDialogConfig = {
+      hasBackdrop: false,
+    }
+    this.dialogRef.open(PostComponent,config);
   }
 }

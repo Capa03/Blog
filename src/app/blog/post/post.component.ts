@@ -1,7 +1,5 @@
-
 import {Component} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
 
 @Component({
   selector: 'app-post',
@@ -9,6 +7,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
+
+
 
   title = new FormControl('',[Validators.required])
   name = new FormControl('',[Validators.required])
@@ -23,4 +23,6 @@ export class PostComponent {
   onSubmit(date:any){
 
   }
+
+
 }
