@@ -8,12 +8,13 @@
   height: 10%;
 }
 
-
-
-
+.active {
+  background-color: #f1f1f1 !important;
+}
 .container {
+  margin-top: 10px;
   border: 2px solid #dedede;
-  background-color: #f1f1f1;
+
   border-radius: 5px;
   padding: 10px;
 }

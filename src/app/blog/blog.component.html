@@ -6,11 +6,21 @@
   <button mat-button (click)="openDialog()">+ New Post</button>
 </mat-toolbar>
 </div>
-<body>
-  <div class="container">
-    <Span>Person Name</Span>
-    <p>Hello. How are you today?</p>
-    <span class="time-right">11:00</span>
+
+<body *ngIf="posts$ | async as posts">
+
+  <div class="container"
+  *ngFor="let post of posts"
+  [ngClass]="{'active': post?.id === (selectedPost$ | async)?.id}"
+  (click)="postSelected(post)"
+  >
+
+    <button style="float: right;" mat-icon-button *ngIf="post?.id === (selectedPost$ | async)?.id"><mat-icon>create</mat-icon></button>
+    <Span>{{post.authorName}}</Span>
+    <h2>{{post.title}}</h2>
+    <p>{{post.content}}</p>
+    <button mat-icon-button style="color: red;" *ngIf="post?.id === (selectedPost$ | async)?.id" (click)="onDelete(post.id)"><mat-icon>delete</mat-icon></button>
+    <span class="time-right">{{post.unixTime | unixToTimestamp}}</span>
   </div>
 </body>
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Post } from '../post';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { catchError, map, Observable, tap, throwError } from 'rxjs';
 })
 
 export class PostService {
-  private postUrl = "http://localhost:7280/Blog";
+  private postUrl = "https://localhost:7280/Blog";
   constructor(private http: HttpClient) { }
 
   getPost(): Observable<Post[]> {
@@ -20,32 +20,42 @@ export class PostService {
   }
 
 
-  createPost(post:Post): Observable<Post>{
+  createPost(post: Post): Observable<Post> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Post>(this.postUrl, post, {headers}).pipe(
+    return this.http.post<Post>(this.postUrl, post, { headers }).pipe(
       tap(data => console.log('createPost: ' + JSON.stringify(data))),
       catchError(this.handleError)
-      );
+    );
   }
 
-  deletePost(id: number): Observable<{}>{
+  deletePost(id: number): Observable<number> {
+    debugger
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.postUrl}/${id}`
-    return this.http.delete<Post>(url,{headers})
-    .pipe(
+    const url = `${this.postUrl}?postToDelete=${id}`
+
+    return this.http.delete<Post>(url, { headers }).pipe(
       tap(() => console.log('PostDeleted: ' + id)),
-      catchError(this.handleError)
-      );
+      map(post => {
+
+        console.log('Post');
+        console.log(post);
+        return id
+      }
+      ))
+      // .pipe(
+      //   tap(() => console.log('PostDeleted: ' + id)),
+      //   catchError(this.handleError)
+      // );
   }
 
-  updatePost(post: Post): Observable<Post>{
+  updatePost(post: Post): Observable<Post> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.postUrl}/${post.id}`;
-    return this.http.put<Post>(url, {headers})
-    .pipe(
-      tap(()=> console.log('PostUpdate' + post.id)),
-      map(()=> post),
-      catchError(this.handleError)
+    return this.http.put<Post>(url, { headers })
+      .pipe(
+        tap(() => console.log('PostUpdate' + post.id)),
+        map(() => post),
+        catchError(this.handleError)
       )
   }
 

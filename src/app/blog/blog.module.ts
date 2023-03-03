@@ -1,3 +1,4 @@
+import { UnixToTimestampPipe } from './../pipe/unix-to-timestamp.pipe';
 import { PostEffects } from './stateBlog/blog.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { postReducer } from './stateBlog/blog.reducer';
@@ -12,11 +13,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { PostComponent } from './post/post.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     BlogComponent,
     PostComponent,
+    UnixToTimestampPipe
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     ReactiveFormsModule,
     StoreModule.forFeature('post',postReducer),
-    EffectsModule.forFeature([PostEffects])
+    EffectsModule.forFeature([PostEffects]),
+    MatIconModule
   ],
   exports:[
     BlogComponent
